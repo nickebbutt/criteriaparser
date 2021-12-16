@@ -1,5 +1,9 @@
 grammar Criteria;                // Define a grammar called Hello
 
+@header {
+package com.logicmint.criteriaparser;
+}
+
 expression :
    condition |
    expression 'AND' expression |
