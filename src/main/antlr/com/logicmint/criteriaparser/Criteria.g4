@@ -13,9 +13,9 @@ expression :
 condition :
      columnId comparison term             # ColumnToTermCondition
    | columnId comparison columnId         # ColumnToColumnCondition
-   | columnId NOT? LIKE STRING_TERM       # LikeCondition
+   | columnId NOT? LIKE string_term       # LikeCondition
    | columnId NOT? IN termlist            # InCondition
-   | columnId 'IS' NOT? NULL_TERM         # NulLCondition ;
+   | columnId 'IS' NOT? null_term # NulLCondition ;
 
 comparison :
      '<='    # LessThanOrEquals
@@ -27,9 +27,14 @@ comparison :
 
 termlist: '(' term (','term)* ')' ;
 
-columnId : COLUMN_ID_TERM ;
+term : int_term | string_term ;
 
-term : INT_TERM | STRING_TERM ;
+// Define these as rules rather than refer to the equivalent lexical tokens directly so that they are represented
+// as type specific callbacks in the ParseTreeListener and are therefore easy to attach custom logic to
+columnId : COLUMN_ID_TERM ;
+int_term : INT_TERM ;
+string_term : STRING_TERM;
+null_term : NULL_TERM;
 
 // Lexical Tokens
 AND: 'AND';
