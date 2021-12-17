@@ -5,22 +5,29 @@ package com.logicmint.criteriaparser;
 }
 
 expression :
-   '(' expression ')' |
-   condition |
-   expression AND expression |
-   expression OR expression ;
+     '(' expression ')'             # ParenthesisedExpression
+   | condition                      # ConditionExpression
+   | expression AND expression      # AndExpression
+   | expression OR expression       # OrExpression ;
 
 condition :
-   COLUMN_ID_TERM comparison_operator term |
-   COLUMN_ID_TERM comparison_operator COLUMN_ID_TERM |
-   COLUMN_ID_TERM NOT? LIKE STRING_TERM |
-   COLUMN_ID_TERM NOT? IN termlist |
-   COLUMN_ID_TERM 'IS' NOT? NULL_TERM ;
+     columnId comparison term             # ColumnToTermCondition
+   | columnId comparison columnId         # ColumnToColumnCondition
+   | columnId NOT? LIKE STRING_TERM       # LikeCondition
+   | columnId NOT? IN termlist            # InCondition
+   | columnId 'IS' NOT? NULL_TERM         # NulLCondition ;
 
-comparison_operator :
-   '<=' | '>=' | '=' | '<' | '>' | '!=' ;
+comparison :
+     '<='    # LessThanOrEquals
+   | '>='    # GreaterThanOrEquals
+   | '='     # Equals
+   | '<'     # LessThan
+   | '>'     # GreaterThan
+   | '!='    # NotEquals ;
 
 termlist: '(' term (','term)* ')' ;
+
+columnId : COLUMN_ID_TERM ;
 
 term : INT_TERM | STRING_TERM ;
 
