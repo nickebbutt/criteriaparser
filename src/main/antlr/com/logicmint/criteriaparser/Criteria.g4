@@ -5,18 +5,17 @@ package com.logicmint.criteriaparser;
 }
 
 expression :
+   '(' expression ')' |
    condition |
    expression AND expression |
-   expression OR expression;
+   expression OR expression ;
 
 condition :
    COLUMN_ID_TERM comparison_operator term |
    COLUMN_ID_TERM comparison_operator COLUMN_ID_TERM |
    COLUMN_ID_TERM NOT? LIKE STRING_TERM |
    COLUMN_ID_TERM NOT? IN termlist |
-   COLUMN_ID_TERM 'IS' NOT? NULL_TERM |
-   NOT expression |
-   '(' expression ')';
+   COLUMN_ID_TERM 'IS' NOT? NULL_TERM ;
 
 comparison_operator :
    '<=' | '>=' | '=' | '<' | '>' | '!=' ;
