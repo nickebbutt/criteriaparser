@@ -14,6 +14,7 @@ condition :
    COLUMN_ID_TERM comparison_operator COLUMN_ID_TERM |
    COLUMN_ID_TERM NOT? LIKE STRING_TERM |
    COLUMN_ID_TERM NOT? IN termlist |
+   COLUMN_ID_TERM 'IS' NOT? NULL_TERM |
    NOT expression |
    '(' expression ')';
 
@@ -22,7 +23,7 @@ comparison_operator :
 
 termlist: '(' term (','term)* ')' ;
 
-term : INT_TERM | STRING_TERM;
+term : INT_TERM | STRING_TERM ;
 
 // Lexical Tokens
 AND: 'AND';
@@ -30,6 +31,7 @@ OR: 'OR';
 LIKE: 'LIKE';
 IN: 'IN';
 NOT: 'NOT';
+NULL_TERM: 'NULL';
 INT_TERM: [-]?[0-9]+ ;
 COLUMN_ID_TERM: [a-zA-Z0-9_]+ ;
 STRING_TERM: '\'' .*? '\'' ;
