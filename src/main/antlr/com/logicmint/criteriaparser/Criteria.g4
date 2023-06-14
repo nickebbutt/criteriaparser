@@ -5,27 +5,30 @@ package com.logicmint.criteriaparser;
 }
 
 expression :
-     '(' expression ')'             # ParenthesisedExpression
+     L_PARENTHESIS expression R_PARENTHESIS             # ParenthesisedExpression
    | condition                      # ConditionExpression
    | expression AND expression      # AndExpression
    | expression OR expression       # OrExpression ;
+
 
 condition :
      columnId comparison term             # ColumnToTermCondition
    | columnId comparison columnId         # ColumnToColumnCondition
    | columnId NOT? LIKE string_term       # LikeCondition
    | columnId NOT? IN termlist            # InCondition
-   | columnId 'IS' NOT? null_term # NulLCondition ;
+   | columnId IS NOT? null_term # NulLCondition ;
+
 
 comparison :
-     '<='    # LessThanOrEquals
-   | '>='    # GreaterThanOrEquals
-   | '='     # Equals
-   | '<'     # LessThan
-   | '>'     # GreaterThan
-   | '!='    # NotEquals ;
+     LESS_THAN_OR_EQUAL    # LessThanOrEquals
+   | GRTR_THAN_OR_EQUAL    # GreaterThanOrEquals
+   | EQUAL_TO     # Equals
+   | LESS_THAN     # LessThan
+   | GREATER_THAN     # GreaterThan
+   | NOT_EQUAL_TO    # NotEquals ;
 
-termlist: '(' term (','term)* ')' ;
+
+termlist: L_PARENTHESIS term (','term)* R_PARENTHESIS ;
 
 term : int_term | string_term ;
 
@@ -37,6 +40,15 @@ string_term : STRING_TERM;
 null_term : NULL_TERM;
 
 // Lexical Tokens
+L_PARENTHESIS: '(';
+R_PARENTHESIS : ')' ;
+NOT_EQUAL_TO : '!=' ;
+GREATER_THAN : '>' ;
+LESS_THAN : '<' ;
+EQUAL_TO : '=' ;
+GRTR_THAN_OR_EQUAL : '>=' ;
+LESS_THAN_OR_EQUAL : '<=' ;
+IS : 'IS' ;
 AND: 'AND';
 OR: 'OR';
 LIKE: 'LIKE';

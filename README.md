@@ -4,7 +4,7 @@
 
 ## CriteriB
 
-CriteriaB is a simple language consisting of predicate expressions similar to those you might 
+CriteriB is a simple language consisting of predicate expressions similar to those you might 
 find in the WHERE clause of a SQL 92 query. This is most useful for specifying simple query criteria
 which apply to columns in a single flat/denormalized table  
 

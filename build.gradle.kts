@@ -23,8 +23,10 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:30.1.1-jre")
+    implementation("com.vmware.antlr4-c3:antlr4-c3:1.1")
 
     antlr("org.antlr:antlr4:4.9.3")
+
 }
 
 tasks.test {
